@@ -83,7 +83,7 @@ Python: https://www.python.org
 NumPy: https://numpy.org
 
 ## Usage
-Now, Progenepredict can be run the conda environment progenepredict that was created in the previous step.
+Now, Progenepredict can be run the conda environment progenepredict that was created in the previous step. The output files will be created in the directory the program is run from. 
 
 **1. Usage instructions**
 ```bash
