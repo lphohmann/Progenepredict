@@ -363,13 +363,13 @@ def detect_genes(input_file, min_length, start_codons, stop_codons, fasta_output
 
 # handling user input
 parser = argparse.ArgumentParser(description="This program takes a fasta file containing one prokaryotic genome and predicts genes based on the presence of a Shine-Dargarno sequence before an open reading frame (ORF).")
-parser.add_argument('-g', '--genomefile', help="The file containing the genome sequence in fasta format.", metavar='', required=True)
-parser.add_argument('-o', '--outputfile', help="The desired name of the output file containing the predicted genes. (default=progenepredict.txt)", default='progenepredict.txt', metavar='')
-parser.add_argument('-ml', '--minORFlength', help="The minimum ORF length of predicted genes. (default=300)", metavar='', default=300, type = int)
-parser.add_argument('-sc', '--startcodons', help="The possible start codons. Input like: -sc ATG GTG TTG ; (default=ATG)", nargs='+', metavar='', default=["ATG"], type=str)
-parser.add_argument('-ec', '--stopcodons', help="The possible stop codons. Input like: -ec TAA TAG TGA ; (default=TAA TAG TGA)", nargs='+', metavar='', default=["TAA","TAG","TGA"], type=str)
-parser.add_argument('-sd', '--shinedalgarnosequence', help="The Shine-Dalgarno sequence. (default=AGGAGG)", metavar='', default="AGGAGG", type=str)
-parser.add_argument('-me', '--maxalignerrors', help="The maximal number of errors that are allowed in the pairwise alignemnt when determining whether a Shine-Dalgarno sequence is present or not. (default=1)", metavar='', default=1, type=int)
+parser.add_argument('-g', '--genomefile', help="The file containing the genome sequence in fasta format.", required=True)
+parser.add_argument('-o', '--outputfile', help="The desired name of the output file containing the predicted genes. (default=progenepredict.txt)", default='progenepredict.txt')
+parser.add_argument('-ml', '--minORFlength', help="The minimum ORF length of predicted genes. (default=300)", default=300, type = int)
+parser.add_argument('-sc', '--startcodons', help="The possible start codons. Input like: -sc ATG GTG TTG ; (default=ATG)", nargs='+', default=["ATG"], type=str)
+parser.add_argument('-ec', '--stopcodons', help="The possible stop codons. Input like: -ec TAA TAG TGA ; (default=TAA TAG TGA)", nargs='+', default=["TAA","TAG","TGA"], type=str)
+parser.add_argument('-sd', '--shinedalgarnosequence', help="The Shine-Dalgarno sequence. (default=AGGAGG)", default="AGGAGG", type=str)
+parser.add_argument('-me', '--maxalignerrors', help="The maximal number of errors that are allowed in the pairwise alignemnt when determining whether a Shine-Dalgarno sequence is present or not. (default=1)", default=1, type=int)
 parser.add_argument('-f', '--fastaoutput', help="Output a file with the DNA sequences of the predicted genes in fasta format", action='store_true')
 
 args = parser.parse_args()
