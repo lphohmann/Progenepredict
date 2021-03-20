@@ -202,7 +202,7 @@ def detect_genes(input_file, min_length, start_codons, stop_codons, fasta_output
         output.write('#{}\t{}\t{}\t{}\t{}\t{}\n'.format('gene_id','start','end','readingframe','strand','start_type')) # the column names
         # open a second output file if the user wants the predicted egene sequences stored in fasta format
         if fasta_output:
-            fastafile = open("predictedgenes.fasta","w")
+            fastafile = open("{}.fasta".format(output_file),"w")
         else:
             pass
         # create the three reading frames for the forward strand
