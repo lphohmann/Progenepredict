@@ -362,7 +362,7 @@ def detect_genes(input_file, min_length, start_codons, stop_codons, fasta_output
 # handling user input
 parser = argparse.ArgumentParser(description="This program takes a fasta file containing one prokaryotic genome and predicts genes based on the presence of a Shine-Dargarno sequence before an open reading frame (ORF).")
 parser.add_argument('-g', '--genomefile', help="The file containing the genome sequence in fasta format.", required=True)
-parser.add_argument('-o', '--outputfile', help="The desired name of the output file containing the predicted genes. (default=progenepredict.txt)", default='geneprediction_output')
+parser.add_argument('-o', '--outputfile', help="The desired name of the output file containing the predicted genes. (default=geneprediction_output)", default='geneprediction_output')
 parser.add_argument('-ml', '--minORFlength', help="The minimum ORF length of predicted genes. (default=300)", default=300, type = int)
 parser.add_argument('-sc', '--startcodons', help="The possible start codons. Input like: -sc ATG GTG TTG ; (default=ATG)", nargs='+', default=["ATG"], type=str)
 parser.add_argument('-ec', '--stopcodons', help="The possible stop codons. Input like: -ec TAA TAG TGA ; (default=TAA TAG TGA)", nargs='+', default=["TAA","TAG","TGA"], type=str)
