@@ -88,7 +88,10 @@ Key arguments:
 '''
 
 def SD_check(sequence, index, SD_seq):
-    pre_sc = sequence[index-20:index] # only the 20 nucleotides before the start codon are checked
+    if index <= 20: # if the index is in the first 20 nucleotides only the sequence from the start to the start codon is investigated
+        pre_sc = sequence[0:index]
+    else:
+        pre_sc = sequence[index-20:index] # only the 20 nucleotides before the start codon are checked
     sm_results = smith_waterman(pre_sc, SD_seq, match_score=3, gap_cost=2) # get the 1. start and 2. end alignment position coordiantes of the SD_seq in the pre_sc and 3. the string with how the SD_seq aligns to the pre_sc sequence (e.g. A-GGAGG)
     SD_alignment = sm_results[2] # this is how the SD sequence aligns to the pre_sc sequence (it may include gaps and/or deletions, e.g. A-GGAGG)
     match_in_pre_sc = pre_sc[sm_results[0]:sm_results[1]]  # store the sequence that the SD_alignment matches to in the pre_sc sequence (e.g. ATGGAGG)
