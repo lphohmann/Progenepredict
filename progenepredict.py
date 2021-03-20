@@ -46,9 +46,7 @@ Usage: progenepredict.py [-h] -g [-o] [-ml] [-sc  [...]] [-ec  [...]] [-sd] [-me
 
 Upcoming:
     1. User interface
-    2. Simplify usage by automatically translating lowercase input of start/stop codons and Shine-Dalgarno sequences to
-       uppercase
-    3. Check that the input SD seq is not longer than 20 characters (longer than pre_sc seq)
+    2. Check that the input SD seq is not longer than 20 characters (longer than pre_sc seq)
 """
 
 ###########################################################
@@ -190,7 +188,7 @@ def detect_genes(input_file, min_length, start_codons, stop_codons, fasta_output
             if line.startswith('>'): # there should be only one line with the name of the genome
                 genome_name = line.strip().lstrip('>') # not further used for now
             else:
-                forward_strand += line.strip() # if the sequence is split over multiple lines it will be concatenated
+                forward_strand += line.strip().upper() # if the sequence is split over multiple lines it will be concatenated
         # based on the forward strand the reverse complement strand is created
         reverse_strand = get_revseq(forward_strand)
     # variables for the three frames
@@ -364,7 +362,7 @@ def detect_genes(input_file, min_length, start_codons, stop_codons, fasta_output
 # handling user input
 parser = argparse.ArgumentParser(description="This program takes a fasta file containing one prokaryotic genome and predicts genes based on the presence of a Shine-Dargarno sequence before an open reading frame (ORF).")
 parser.add_argument('-g', '--genomefile', help="The file containing the genome sequence in fasta format.", required=True)
-parser.add_argument('-o', '--outputfile', help="The desired name of the output file containing the predicted genes. (default=progenepredict.txt)", default='progenepredict.txt')
+parser.add_argument('-o', '--outputfile', help="The desired name of the output file containing the predicted genes. (default=progenepredict.txt)", default='geneprediction_output')
 parser.add_argument('-ml', '--minORFlength', help="The minimum ORF length of predicted genes. (default=300)", default=300, type = int)
 parser.add_argument('-sc', '--startcodons', help="The possible start codons. Input like: -sc ATG GTG TTG ; (default=ATG)", nargs='+', default=["ATG"], type=str)
 parser.add_argument('-ec', '--stopcodons', help="The possible stop codons. Input like: -ec TAA TAG TGA ; (default=TAA TAG TGA)", nargs='+', default=["TAA","TAG","TGA"], type=str)
@@ -375,12 +373,12 @@ parser.add_argument('-f', '--fastaoutput', help="Output a file with the DNA sequ
 args = parser.parse_args()
 
 # saving user input in specific variables
-start_codons = set(args.startcodons)    # convert the list with start codons into a set
-stop_codons = set(args.stopcodons)      # convert the list with stop codons into a set
+start_codons = set([codon.upper() for codon in args.startcodons]) # convert to uppercase and set
+stop_codons = set([codon.upper() for codon in args.stopcodons]) # convert to uppercase and set
 input_file = args.genomefile
 output_file = args.outputfile
 min_length = args.minORFlength
-SD_seq = args.shinedalgarnosequence
+SD_seq = args.shinedalgarnosequence.upper()
 allowed_errors = args.maxalignerrors
 fasta_output = args.fastaoutput
 
